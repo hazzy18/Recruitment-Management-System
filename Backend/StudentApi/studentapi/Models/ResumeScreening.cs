@@ -1,3 +1,7 @@
+
+
+//-------------------------------------------------------------------------------------------------------------
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using studentapi.Models;
@@ -25,6 +29,14 @@ public class ResumeScreening
     [Column("reviewer_id")] // Adding column name for ReviewerId (nullable)
 
     public int? ReviewerId { get; set; }//nullable 
+
+
+    [Column("interviewer_ids")]  // Store multiple interviewer IDs as comma-separated values
+    public string? InterviewerIds { get; set; }
+
+    [Column("total_rounds")]
+    public int? TotalRounds { get; set; } // Nullable for optional rounds
+
 
     [Column("comments")] // Adding column name for Comments
 
@@ -55,4 +67,6 @@ public class ResumeScreening
     // [InverseProperty("ResumeScreenings")]
 
     public Employee? Reviewer { get; set; }
+
+
 }

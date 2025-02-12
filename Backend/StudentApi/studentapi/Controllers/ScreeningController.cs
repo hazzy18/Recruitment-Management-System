@@ -50,6 +50,8 @@ public async Task<IActionResult> GetResumeScreenings(
         .Select(rs => new ResumeScreeningDTO
         {
             ResumeScreeningId = rs.Id, 
+            JobId = rs.JobId,  // ✅ Fetch JobId
+
             JobName = rs.Job != null ? rs.Job.Title : "N/A",
             CandidateName = rs.Candidate != null ? rs.Candidate.Name : "N/A",
             CandidateEmail = rs.Candidate != null ? rs.Candidate.Email : "N/A", // Fetch Email
@@ -224,7 +226,57 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 
 
+// [HttpGet]
+// public async Task<IActionResult> GetResumeScreenings(
+//     [FromQuery] bool unassignedOnly = true,
+//     [FromQuery] string? statusFilter = null) // Default to true
+// {
+//     Console.WriteLine($"Query Parameter Received: unassignedOnly={unassignedOnly}, statusFilter={statusFilter}");
 
+//     var query = _context.ResumeScreenings
+//         .Include(rs => rs.Job)
+//         .Include(rs => rs.Candidate)
+//         .AsQueryable();
+
+//     if (unassignedOnly) // Default case (fetch only unassigned)
+//     {
+//         query = query.Where(rs => rs.ReviewerId == null);
+//     }
+//     else // Fetch only assigned
+//     {
+//         query = query.Where(rs => rs.ReviewerId != null);
+
+//         // Apply additional status filter for assigned records
+//         if (!string.IsNullOrEmpty(statusFilter))
+//         {
+//             query = query.Where(rs => rs.Status == statusFilter);
+//         }
+//     }
+
+//     var screenings = await query
+//         .Select(rs => new ResumeScreeningDTO
+//         {
+//             ResumeScreeningId = rs.Id, 
+//             JobName = rs.Job != null ? rs.Job.Title : "N/A",
+//             CandidateName = rs.Candidate != null ? rs.Candidate.Name : "N/A",
+//             CandidateEmail = rs.Candidate != null ? rs.Candidate.Email : "N/A", // Fetch Email
+
+//             Experience = rs.Candidate != null ? rs.Candidate.Experience : 0, // Fetch Experience
+
+//             Status = rs.Status,
+//             ReviewerId = rs.ReviewerId 
+//         })
+//     .ToListAsync();
+//         Console.WriteLine($"Records Found: {screenings.Count}"); // Debugging Log
+
+//    if (!screenings.Any()) // Ensure empty result doesn't return 404
+//     {
+//         return Ok(new List<ResumeScreeningDTO>());
+//     }
+
+
+//     return Ok(screenings);
+// }
 
 
 
@@ -237,6 +289,9 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 public class ResumeScreeningDTO
 {
     public int ResumeScreeningId { get; set; } // Unique ID of the screening record
+
+    public int JobId { get; set; }  // ✅ Add JobId
+
     public string JobName { get; set; } = string.Empty;
     public string CandidateName { get; set; } = string.Empty;
         public string CandidateEmail { get; set; } = string.Empty; // Add Candidate Email
@@ -301,11 +356,14 @@ public class SkillExperienceDto
 
 
 
+
 // public class ResumeScreeningDTO
 // {
 //     public int ResumeScreeningId { get; set; } // Unique ID of the screening record
 //     public string JobName { get; set; } = string.Empty;
 //     public string CandidateName { get; set; } = string.Empty;
+//         public string CandidateEmail { get; set; } = string.Empty; // Add Candidate Email
+
 //     public int Experience { get; set; } // Add Experience Field
 
 //     public string Status { get; set; } = string.Empty;
