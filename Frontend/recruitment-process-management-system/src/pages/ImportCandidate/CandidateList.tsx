@@ -56,7 +56,6 @@ import React, { useState, useEffect } from 'react';
                   <div className="flex items-center space-x-3.5">
                     {/* Add buttons or actions here */}
                     <button className="hover:text-primary">
-                      {/* Example icon (edit) */}
                       <svg
                         className="fill-current"
                         width="18"

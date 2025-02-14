@@ -31,6 +31,15 @@ namespace studentapi.Models
         [Column("cv_filepath")]
         public string? CV_FilePath { get; set; } // Stores file path for CV
 
+        [Column("document")]
+        public string? Document { get; set; } // Stores file path for document
+
+        [Required]
+        [StringLength(255)]
+        [Column("password")]
+        public string Password { get; set; } = string.Empty; // New Password column
+
+
         // Navigation property for CandidateSkills
         public ICollection<CandidateSkill>? CandidateSkills { get; set; }
     }

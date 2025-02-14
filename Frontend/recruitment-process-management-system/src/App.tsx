@@ -15,11 +15,8 @@ import Settings from './pages/Settings';
 import Chart from './pages/Chart';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
-// import JobManagement from './pages/JobManagement';
 import { JobMainContainer } from './pages/JobManagement/JobMainContainer';
 import { ImportCandidateMainContainer } from './pages/ImportCandidate/ImportCandidateMainContainer';
-import  ScreeningPage  from './pages/Dashboard/ScreeningPage';
-import ReviewerPage from "./pages/Dashboard/ReviewerPage"
 import ScreeningMainContainer from './pages/Dashboard/ScreeningMainContainer';
 import ReviewerMainContainer from './pages/Dashboard/ReviewerMainContainer';
 import ShorlistedMainContainer from './pages/InterviewDashboard/ShorlistedMainContainer';
@@ -27,6 +24,10 @@ import RejectedPage from './pages/Dashboard/RejectedPage';
 import Round1 from './pages/InterviewDashboard/Round1';
 import Round2 from './pages/InterviewDashboard/Round2';
 import FinalRound from './pages/InterviewDashboard/FinalRound';
+import SelectedCandidates from './pages/Selection/SelectedCandidates';
+import DocumentVerification from './pages/Hr dashboard/DocumentVerification';
+import ReleaseOfferLetter from './pages/Hr dashboard/ReleaseOfferLetter';
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
@@ -48,6 +49,14 @@ function App() {
 
     const isAuthRoute = authRoutes.includes(location.pathname);
 
+
+
+
+
+ 
+
+
+
     return (
       <div>
         {isAuthRoute ? (
@@ -58,6 +67,8 @@ function App() {
         ) : (
           <DefaultLayout>
             <Routes>
+            <Route element={<ProtectedRoute />}>
+
               <Route index element={<ECommerce />} />
               <Route path="/screeningpage" element={<ScreeningMainContainer />} />
               <Route path="/reviewerpage" element={<ReviewerMainContainer />} />
@@ -67,6 +78,10 @@ function App() {
               <Route path="/round1Container" element={<Round1 />} />
               <Route path="/round2Container" element={<Round2 />} />
               <Route path="/finalRoundContainer" element={<FinalRound />} />
+
+              <Route path="/selected" element={<SelectedCandidates />} />
+              <Route path="/documentverification" element={<DocumentVerification />} />
+              <Route path="/releaseofferletter" element={<ReleaseOfferLetter/>} />
 
 
               <Route path="/calendar" element={<Calendar />} />
@@ -81,6 +96,7 @@ function App() {
               <Route path="chart" element={<Chart />} />
               <Route path="ui/alerts" element={<Alerts />} />
               <Route path="ui/buttons" element={<Buttons />} />
+              </Route>
             </Routes>
           </DefaultLayout>
         )}

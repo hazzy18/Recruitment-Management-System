@@ -1,0 +1,53 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\16_638750300522279523.png",
+      "PackagePath": "staticwebassets\\uploads\\16_638750300522279523.png"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\17_638750323400637591.png",
+      "PackagePath": "staticwebassets\\uploads\\17_638750323400637591.png"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638750317232211193.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\69_638750317232211193.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638750323791013132.docx",
+      "PackagePath": "staticwebassets\\uploads\\69_638750323791013132.docx"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638750362391808026.pdf",
+      "PackagePath": "staticwebassets\\uploads\\69_638750362391808026.pdf"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638750365535359366.xlsx",
+      "PackagePath": "staticwebassets\\uploads\\69_638750365535359366.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638750578835491195.pdf",
+      "PackagePath": "staticwebassets\\uploads\\69_638750578835491195.pdf"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.studentapi.props",
+      "PackagePath": "build\\studentapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.studentapi.props",
+      "PackagePath": "buildMultiTargeting\\studentapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.studentapi.props",
+      "PackagePath": "buildTransitive\\studentapi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.studentapi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.studentapi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

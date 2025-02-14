@@ -27,6 +27,7 @@ public class InterviewScheduleController : ControllerBase
     }
 
 
+
     [HttpPost("schedule")]
     public async Task<IActionResult> ScheduleInterview([FromBody] InterviewRequest request)
     {
@@ -110,6 +111,291 @@ public class InterviewScheduleController : ControllerBase
 
 
 
+[HttpPost("evaluate-screening")]
+public async Task<IActionResult> EvaluateResumeScreening([FromBody] ResumeScreeningEvaluationDTO request)
+{
+    if (request.SkillRatings == null || request.SkillRatings.Count == 0)
+    {
+        return BadRequest("Skill ratings are required.");
+    }
+
+    var jobSkills = await _context.JobSkills
+        .Where(js => js.JobId == request.JobId)
+        .ToListAsync();
+
+    if (jobSkills == null || jobSkills.Count == 0)
+    {
+        return NotFound("No skills found for this job.");
+    }
+
+    // Separate required and preferred skills
+    var requiredSkills = jobSkills.Where(js => js.Type == "required").Select(js => js.SkillId).ToList();
+    var preferredSkills = jobSkills.Where(js => js.Type == "preferred").Select(js => js.SkillId).ToList();
+
+    // Compute averages for required and preferred skills
+    var requiredRatings = request.SkillRatings
+        .Where(sr => requiredSkills.Contains(sr.Key))
+        .Select(sr => sr.Value)
+        .ToList();
+
+    var preferredRatings = request.SkillRatings
+        .Where(sr => preferredSkills.Contains(sr.Key))
+        .Select(sr => sr.Value)
+        .ToList();
+
+    double requiredAvg = requiredRatings.Any() ? requiredRatings.Average() : 0;
+    double preferredAvg = preferredRatings.Any() ? preferredRatings.Average() : 0;
+
+    // Check if candidate qualifies
+    bool qualifies = requiredAvg >= 3 && preferredAvg > 1;
+
+    // Update resume screening status
+    var screening = await _context.ResumeScreenings.FindAsync(request.ResumeScreeningId);
+    if (screening == null)
+    {
+        return NotFound("Resume screening not found.");
+    }
+
+     // Extract the current round number from the status (e.g., "Round 1" -> 1)
+         int totalRounds = screening.TotalRounds ?? 1;
+
+    int currentRound = 1;
+
+
+    if (screening.Status.Equals("Final Round", StringComparison.OrdinalIgnoreCase))
+    {
+        currentRound = totalRounds;  // If "Final Round", set currentRound to totalRounds
+    }
+
+
+    else if (screening.Status.StartsWith("Round"))
+    {
+        string roundNumberString = new string(screening.Status.Where(char.IsDigit).ToArray());
+        if (int.TryParse(roundNumberString, out int roundNum))
+        {
+            currentRound = roundNum;
+        }
+    }
+
+    int nextRound = currentRound + 1;
+
+    if (qualifies)
+    {
+                if (currentRound == totalRounds)
+        {
+            // ✅ If the candidate clears the final round, mark them as "Selected"
+            screening.Status = "Selected";
+        }
+        else if (nextRound == totalRounds) 
+        {
+            screening.Status = "Final Round";
+        }
+        else
+        {
+            screening.Status = $"Round {nextRound}";
+        }
+    }
+    else
+    {
+        screening.Status = "Rejected";
+    }
+
+
+
+
+    // Fetch existing skill ratings for this screening
+    var existingSkillRatings = await _context.ResumeScreeningSkillRatings
+        .Where(r => r.ScreeningId == request.ResumeScreeningId)
+        .ToListAsync();
+
+    foreach (var skillRating in request.SkillRatings)
+    {
+        var skillId = skillRating.Key;
+        var rating = skillRating.Value;
+        var additionalComment = request.SkillComments != null && request.SkillComments.ContainsKey(skillId)
+            ? request.SkillComments[skillId]
+            : null;
+
+        var existingRating = existingSkillRatings.FirstOrDefault(r => r.SkillId == skillId);
+
+        if (existingRating != null)
+        {
+            // Update existing record
+            existingRating.Rating = rating;
+            existingRating.AdditionalComments = additionalComment;
+            _context.ResumeScreeningSkillRatings.Update(existingRating);
+        }
+        else
+        {
+            // Insert new record if it doesn’t exist
+            var newSkillRating = new ResumeScreeningSkillRating
+            {
+                ScreeningId = request.ResumeScreeningId,
+                SkillId = skillId,
+                Rating = rating,
+                AdditionalComments = additionalComment
+            };
+            _context.ResumeScreeningSkillRatings.Add(newSkillRating);
+        }
+    }
+
+
+
+
+
+
+
+    if (request.SkillComments != null && request.SkillComments.Count > 0)
+    {
+        screening.Comments = string.Join(", ", request.SkillComments.Values.Where(c => !string.IsNullOrWhiteSpace(c)));
+    }
+
+    _context.ResumeScreenings.Update(screening);
+    await _context.SaveChangesAsync();
+
+    return Ok(new
+    {
+        ResumeScreeningId = screening.Id,
+        Status = screening.Status,
+        RequiredAverage = requiredAvg,
+        PreferredAverage = preferredAvg,
+        Comments = screening.Comments
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// [HttpPost("evaluate-screening")]
+// public async Task<IActionResult> EvaluateResumeScreening([FromBody] ResumeScreeningEvaluationDTO request)
+// {
+//     if (request.SkillRatings == null || request.SkillRatings.Count == 0)
+//     {
+//         return BadRequest("Skill ratings are required.");
+//     }
+
+//     var jobSkills = await _context.JobSkills
+//         .Where(js => js.JobId == request.JobId)
+//         .ToListAsync();
+
+//     if (jobSkills == null || jobSkills.Count == 0)
+//     {
+//         return NotFound("No skills found for this job.");
+//     }
+
+//     // Separate required and preferred skills
+//     var requiredSkills = jobSkills.Where(js => js.Type == "required").Select(js => js.SkillId).ToList();
+//     var preferredSkills = jobSkills.Where(js => js.Type == "preferred").Select(js => js.SkillId).ToList();
+
+//     // Compute averages for required and preferred skills
+//     var requiredRatings = request.SkillRatings
+//         .Where(sr => requiredSkills.Contains(sr.Key))
+//         .Select(sr => sr.Value)
+//         .ToList();
+
+//     var preferredRatings = request.SkillRatings
+//         .Where(sr => preferredSkills.Contains(sr.Key))
+//         .Select(sr => sr.Value)
+//         .ToList();
+
+//     double requiredAvg = requiredRatings.Any() ? requiredRatings.Average() : 0;
+//     double preferredAvg = preferredRatings.Any() ? preferredRatings.Average() : 0;
+
+//     // Check if candidate qualifies
+//     bool qualifies = requiredAvg >= 3 && preferredAvg > 1;
+
+//     // Update resume screening status
+//     var screening = await _context.ResumeScreenings.FindAsync(request.ResumeScreeningId);
+//     if (screening == null)
+//     {
+//         return NotFound("Resume screening not found.");
+//     }
+
+//      // Extract the current round number from the status (e.g., "Round 1" -> 1)
+//          int totalRounds = screening.TotalRounds ?? 1;
+
+//     int currentRound = 1;
+
+
+//     if (screening.Status.Equals("Final Round", StringComparison.OrdinalIgnoreCase))
+//     {
+//         currentRound = totalRounds;  // If "Final Round", set currentRound to totalRounds
+//     }
+
+
+//     else if (screening.Status.StartsWith("Round"))
+//     {
+//         string roundNumberString = new string(screening.Status.Where(char.IsDigit).ToArray());
+//         if (int.TryParse(roundNumberString, out int roundNum))
+//         {
+//             currentRound = roundNum;
+//         }
+//     }
+
+//     int nextRound = currentRound + 1;
+
+//     if (qualifies)
+//     {
+//                 if (currentRound == totalRounds)
+//         {
+//             // ✅ If the candidate clears the final round, mark them as "Selected"
+//             screening.Status = "Selected";
+//         }
+//         else if (nextRound == totalRounds) 
+//         {
+//             screening.Status = "Final Round";
+//         }
+//         else
+//         {
+//             screening.Status = $"Round {nextRound}";
+//         }
+//     }
+//     else
+//     {
+//         screening.Status = "Rejected";
+//     }
+
+
+
+//     if (request.SkillComments != null && request.SkillComments.Count > 0)
+//     {
+//         screening.Comments = string.Join(", ", request.SkillComments.Values.Where(c => !string.IsNullOrWhiteSpace(c)));
+//     }
+
+//     _context.ResumeScreenings.Update(screening);
+//     await _context.SaveChangesAsync();
+
+//     return Ok(new
+//     {
+//         ResumeScreeningId = screening.Id,
+//         Status = screening.Status,
+//         RequiredAverage = requiredAvg,
+//         PreferredAverage = preferredAvg,
+//         Comments = screening.Comments
+
+//     });
+// }
+
 
 
 
@@ -131,5 +417,16 @@ public class InterviewRequest
 
 }
 
+
+
+public class ResumeScreeningEvaluationDTO
+{
+    public int ResumeScreeningId { get; set; }
+    public int JobId { get; set; }
+    public Dictionary<int, int> SkillRatings { get; set; } = new(); // SkillId -> Rating
+
+     public Dictionary<int, string> SkillComments { get; set; } = new(); // 🔹 Add this for comments
+
+}
 
 

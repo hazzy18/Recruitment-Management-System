@@ -1,8 +1,14 @@
+
+//----------------------------------------------------------------------------------------------
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import FeedbackModal from "./FeedbackModal";
 
 interface ResumeScreening {
   resumeScreeningId: number;
+  jobId:number,
   jobName: string;
   candidateName: string;
   candidateEmail: string;
@@ -15,6 +21,20 @@ const Round1 = () => {
   const [screenings, setScreenings] = useState<ResumeScreening[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedScreening, setSelectedScreening] = useState<ResumeScreening | null>(null);
+
+
+// Open modal
+const handleOpenModal = (screening: ResumeScreening) => {
+  setSelectedScreening(screening);
+};
+
+// Close modal
+const handleCloseModal = () => {
+  setSelectedScreening(null);
+};
+
+
 
   useEffect(() => {
     const fetchScreenings = async () => {
@@ -108,8 +128,8 @@ const Round1 = () => {
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <button
                         className="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
-                        onClick={() => console.log(`Feedback for ${screening.resumeScreeningId}`)}
-                      >
+                        onClick={() => handleOpenModal(screening)}
+                        >
                         Add feedback
                       </button>
                     </td>
@@ -126,6 +146,16 @@ const Round1 = () => {
           </table>
         </div>
       )}
+{selectedScreening && (
+  <FeedbackModal
+    isOpen={!!selectedScreening}
+    onClose={handleCloseModal}
+    resumeScreeningId={selectedScreening.resumeScreeningId}
+    jobId={selectedScreening.jobId}
+    candidateName={selectedScreening.candidateName}
+    jobTitle={selectedScreening.jobName}
+  />
+)}
     </div>
   );
 };

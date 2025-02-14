@@ -5,6 +5,8 @@ using studentapi.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace studentapi.Controllers
 {
@@ -105,6 +107,7 @@ namespace studentapi.Controllers
     
 
 
+[Authorize(Roles = "Candidate")]
 
 //get all jobs 
 [HttpGet]
@@ -125,6 +128,7 @@ namespace studentapi.Controllers
         }
 
 
+[Authorize(Roles = "Interviewer")]
 
         [HttpPost]
         public async Task<IActionResult> CreateJob([FromBody] JobPositionDto jobPositionDto)
@@ -155,6 +159,57 @@ namespace studentapi.Controllers
 
             return Ok(jobPosition);
         }
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[HttpGet("{jobId}/skills")]
+    public async Task<ActionResult<IEnumerable<JobSkillsDto>>> GetJobSkills(int jobId)
+    {
+        var jobSkills = await _context.JobSkills
+            .Where(js => js.JobId == jobId)
+            .Include(js => js.Skill)
+            .Select(js => new JobSkillsDto
+            {
+                SkillId = js.SkillId,
+                SkillName = js.Skill!.Name, // Get Skill Name from the Skill entity
+                Type = js.Type // "Preferred" or "Required"
+            })
+            .ToListAsync();
+
+        if (jobSkills == null || jobSkills.Count == 0)
+        {
+            return NotFound(new { message = "No skills found for this job." });
+        }
+
+        return Ok(jobSkills);
+    }
+
+
+
+
+
     }
 
     public class JobPositionDto
@@ -183,3 +238,11 @@ public class JobMinimalDto
 }
     
 }
+
+public class JobSkillsDto
+{
+    public int SkillId { get; set; }
+    public string SkillName { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty; // "Preferred" or "Required"
+}
+

@@ -38,7 +38,7 @@ public class ResumeScreening
     public int? TotalRounds { get; set; } // Nullable for optional rounds
 
 
-    [Column("comments")] // Adding column name for Comments
+    [Column("additional_comments")] // Adding column name for Comments
 
     public string? Comments { get; set; }
 

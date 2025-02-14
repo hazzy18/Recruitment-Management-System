@@ -25,6 +25,9 @@ public class Employee
     [StringLength(100)]
     public string Designation { get; set; } = string.Empty; // Example: "Senior Recruiter", "Technical Interviewer"
 
+[Required]
+    [StringLength(255)]
+    public string Password { get; set; } = string.Empty; // New Password column
     
     // Navigation property: An employee can review multiple resumes
     public ICollection<ResumeScreening>? ResumeScreenings { get; set; }

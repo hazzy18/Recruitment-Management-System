@@ -23,7 +23,15 @@ namespace studentapi.Data
         ////----------------------------------ADDED
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<CandidateSkill> CandidateSkills { get; set; }
+
+                public DbSet<User> Users { get; set; }
+
 ///--------------------------------------------
+///
+
+public DbSet<ResumeScreeningSkillRating> ResumeScreeningSkillRatings { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<JobPosition>()

@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using studentapi.Data;
 using System;
+using Microsoft.AspNetCore.Authorization;
+
+
 [ApiController]
 [Route("api/screenings")]
 public class ScreeningController : ControllerBase
@@ -18,7 +21,7 @@ public class ScreeningController : ControllerBase
     }   
 
 
-
+[Authorize(Roles = "Candidate,Interviewer")]
 [HttpGet]
 public async Task<IActionResult> GetResumeScreenings(
     [FromQuery] bool unassignedOnly = true,
@@ -72,20 +75,6 @@ public async Task<IActionResult> GetResumeScreenings(
 
     return Ok(screenings);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -226,6 +215,22 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // [HttpGet]
 // public async Task<IActionResult> GetResumeScreenings(
 //     [FromQuery] bool unassignedOnly = true,
@@ -257,6 +262,8 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 //         .Select(rs => new ResumeScreeningDTO
 //         {
 //             ResumeScreeningId = rs.Id, 
+//             JobId = rs.JobId,  // ✅ Fetch JobId
+
 //             JobName = rs.Job != null ? rs.Job.Title : "N/A",
 //             CandidateName = rs.Candidate != null ? rs.Candidate.Name : "N/A",
 //             CandidateEmail = rs.Candidate != null ? rs.Candidate.Email : "N/A", // Fetch Email
@@ -277,10 +284,6 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 //     return Ok(screenings);
 // }
-
-
-
-
 
 
 
