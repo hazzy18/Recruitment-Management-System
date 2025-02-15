@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FeedbackModal from "./FeedbackModal";
+import { isRoleAllowed } from "../../auth";
 
 interface ResumeScreening {
   resumeScreeningId: number;
@@ -126,12 +127,15 @@ const handleCloseModal = () => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                     {isRoleAllowed(["Admin","Interviewer"]) &&(
+                      
                       <button
                         className="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
                         onClick={() => handleOpenModal(screening)}
                         >
                         Add feedback
                       </button>
+                     )}
                     </td>
                   </tr>
                 ))

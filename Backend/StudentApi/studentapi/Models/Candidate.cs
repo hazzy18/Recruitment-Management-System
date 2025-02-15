@@ -34,10 +34,10 @@ namespace studentapi.Models
         [Column("document")]
         public string? Document { get; set; } // Stores file path for document
 
-        [Required]
         [StringLength(255)]
         [Column("password")]
-        public string Password { get; set; } = string.Empty; // New Password column
+        public string? Password { get; set; } 
+ 
 
 
         // Navigation property for CandidateSkills

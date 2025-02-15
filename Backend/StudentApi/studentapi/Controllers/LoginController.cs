@@ -61,7 +61,7 @@ public IActionResult Login([FromBody] UserDvo login)
                 new Claim(ClaimTypes.Role, role)
                 //i can add name also 
             }),
-            Expires = DateTime.UtcNow.AddHours(2),
+            Expires = DateTime.UtcNow.AddHours(4),
             Issuer = "your-app",  // Add Issuer
         Audience = "your-client", // Add Audience
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

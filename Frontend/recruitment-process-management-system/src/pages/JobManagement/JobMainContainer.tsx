@@ -19,7 +19,10 @@ export const JobMainContainer = () => {
 
     return (
         <>
-            {isRoleAllowed(["Interviewer","Reviewer","hr"]) && <div className="flex justify-between items-center mb-4">
+            {/* {isRoleAllowed(["Interviewer","Reviewer","HR"]) && */}
+            {isRoleAllowed(["Recruiter","Admin"]) &&( 
+
+             <div className="flex justify-between items-center mb-4">
                 <div></div> {/* Empty div for spacing */}
                 <button
                     className="inline-flex items-center justify-center gap-2.5 bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
@@ -33,7 +36,8 @@ export const JobMainContainer = () => {
                     Create Job
                 </button>
             </div> 
-}
+            )}
+
             <JobList onViewJob={handleViewJob} isOpen={isOpen} />
             <JobForm jobId={jobId} isOpen={isOpen} setIsOpen={setIsOpen} operation={operation}/>
             

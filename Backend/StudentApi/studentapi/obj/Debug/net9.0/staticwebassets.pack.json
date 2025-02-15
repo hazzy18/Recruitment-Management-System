@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\uploads\\69_638750578835491195.pdf"
     },
     {
+      "Id": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638751327812860035.pdf",
+      "PackagePath": "staticwebassets\\uploads\\69_638751327812860035.pdf"
+    },
+    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.studentapi.props",
       "PackagePath": "build\\studentapi.props"
     },

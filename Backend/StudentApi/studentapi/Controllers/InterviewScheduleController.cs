@@ -1,8 +1,6 @@
 
 //-------------------------------------------------------------------------------------------------------------------
 
-
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using studentapi.Models;
@@ -13,6 +11,8 @@ using studentapi.Data;
 using System.Net;
 using System.Net.Mail;
 using System;
+using Microsoft.AspNetCore.Authorization;
+
 [ApiController]
 [Route("api/interview")]
 public class InterviewScheduleController : ControllerBase
@@ -27,6 +27,7 @@ public class InterviewScheduleController : ControllerBase
     }
 
 
+[Authorize(Roles = "Recruiter,Admin")]
 
     [HttpPost("schedule")]
     public async Task<IActionResult> ScheduleInterview([FromBody] InterviewRequest request)
@@ -103,13 +104,7 @@ public class InterviewScheduleController : ControllerBase
 
 
 
-
-
-
-
-
-
-
+[Authorize(Roles = "Interviewer,Admin")]
 
 [HttpPost("evaluate-screening")]
 public async Task<IActionResult> EvaluateResumeScreening([FromBody] ResumeScreeningEvaluationDTO request)
@@ -263,24 +258,6 @@ public async Task<IActionResult> EvaluateResumeScreening([FromBody] ResumeScreen
 
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -21,7 +21,7 @@ public class ScreeningController : ControllerBase
     }   
 
 
-[Authorize(Roles = "Candidate,Interviewer")]
+// [Authorize(Roles = "Candidate,Interviewer")]
 [HttpGet]
 public async Task<IActionResult> GetResumeScreenings(
     [FromQuery] bool unassignedOnly = true,
@@ -78,6 +78,7 @@ public async Task<IActionResult> GetResumeScreenings(
 
 
 
+[Authorize(Roles = "HR,Admin")]
 
     [HttpPost("assign-reviewer")]
 public async Task<IActionResult> AssignReviewer([FromBody] AssignReviewerDto assignReviewerDto)
@@ -142,6 +143,7 @@ public async Task<IActionResult> AssignReviewer([FromBody] AssignReviewerDto ass
 
 
 
+[Authorize(Roles = "Reviewer,Admin")]
 
 [HttpPost("submit-comment")]
 public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto request)
@@ -172,6 +174,7 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 }
 
 
+[Authorize(Roles = "Reviewer,Admin")]
 
 // PUT: api/resume-screening/{id}/status
     [HttpPut("{id}/status")]

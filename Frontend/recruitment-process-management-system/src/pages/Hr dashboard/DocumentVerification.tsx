@@ -204,7 +204,7 @@ const DocumentVerification = () => {
               ) : (
                 <tr>
                   <td colSpan={6} className="text-center py-5 text-gray-500">
-                    No candidates available for Round 2.
+                    No candidates available for document verification.
                   </td>
                 </tr>
               )}

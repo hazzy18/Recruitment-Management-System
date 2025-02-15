@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3wUnzbzqib1fi4PB1nBt9KAPwiZuEBpfEfGfW1ktc8w=",
+  "Hash": "a3OxP1Y8ebrrmR92pCxtJp4Lea6x+dMfhRNY+om3x7s=",
   "Source": "studentapi",
   "BasePath": "_content/studentapi",
   "Mode": "Default",
@@ -162,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\69_638750578835491195.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638751327812860035.pdf",
+      "SourceId": "studentapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\",
+      "BasePath": "_content/studentapi",
+      "RelativePath": "uploads/69_638751327812860035#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "3ubp14ujg7",
+      "Integrity": "K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\69_638751327812860035.pdf"
     }
   ],
   "Endpoints": [
@@ -726,6 +747,88 @@
         {
           "Name": "Last-Modified",
           "Value": "Thu, 13 Feb 2025 15:38:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/69_638751327812860035.3ubp14ujg7.pdf",
+      "AssetFile": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638751327812860035.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "198327"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 14 Feb 2025 12:26:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3ubp14ujg7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/69_638751327812860035.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/69_638751327812860035.pdf",
+      "AssetFile": "C:\\Users\\guptalah\\Desktop\\RecruitmentManagementSystem\\Backend\\StudentApi\\studentapi\\wwwroot\\uploads\\69_638751327812860035.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "198327"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 14 Feb 2025 12:26:21 GMT"
         },
         {
           "Name": "Cache-Control",

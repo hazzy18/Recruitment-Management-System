@@ -575,6 +575,88 @@
           "Value": "sha256-K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE="
         }
       ]
+    },
+    {
+      "Route": "uploads/69_638751327812860035.3ubp14ujg7.pdf",
+      "AssetFile": "uploads/69_638751327812860035.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "198327"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 14 Feb 2025 12:26:21 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3ubp14ujg7"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE="
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/69_638751327812860035.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "uploads/69_638751327812860035.pdf",
+      "AssetFile": "uploads/69_638751327812860035.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "198327"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 14 Feb 2025 12:26:21 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-K9kkxLmu9igzKTozfqV4u7m72/X+9nIrSrkttrroYGE="
+        }
+      ]
     }
   ]
 }

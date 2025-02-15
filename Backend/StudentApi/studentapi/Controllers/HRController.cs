@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.StaticFiles;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -28,6 +29,8 @@ public class HRController : ControllerBase
         _environment = environment;
 
     }
+
+[Authorize(Roles = "HR,Admin")]
 
 [HttpPost("release-offer/{resumeScreeningId}")]
     public async Task<IActionResult> ReleaseOfferLetter(int resumeScreeningId, [FromBody] OfferLetterRequest request)
@@ -123,6 +126,7 @@ public class HRController : ControllerBase
 
 
 
+[Authorize(Roles = "HR,Admin")]
 
 [HttpGet("download/{resumeScreeningId}")]
 public async Task<IActionResult> DownloadDocument(int resumeScreeningId)
@@ -164,6 +168,7 @@ public async Task<IActionResult> DownloadDocument(int resumeScreeningId)
 
 
 
+[Authorize(Roles = "HR,Admin")]
 
 [HttpPut("verify/{resumeScreeningId}")]
 public async Task<IActionResult> VerifyResumeScreening(int resumeScreeningId)

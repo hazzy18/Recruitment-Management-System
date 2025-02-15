@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import CandidateForm from "./Candidateform";
+import CandidateForm from "./CandidateForm";
 import CandidateList from './CandidateList';
 import axios from "axios";
 import UploadFile from './UploadFile';

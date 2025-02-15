@@ -197,6 +197,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import HistoryModal from "./HistoryModal";
 import UploadFile from "./UploadFile";
+import { isRoleAllowed } from "../../auth";
 
 
 interface ResumeScreening {
@@ -316,15 +317,19 @@ const handleFileSelect = (file: File) => {
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    {isRoleAllowed(["Recruiter","Admin","HR"]) &&( 
+
                       <button className="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600 mr-2"
                         onClick={() => handleOpenModal(screening)}
 
                       >
                         Interview History
                       </button>
-
+                    )}
 
                         {/* Upload Document Button */}
+      {isRoleAllowed(["Candidate","Admin"]) &&( 
+                        
 
   <button
     className="px-3 py-1 text-white bg-green-500 rounded hover:bg-green-600"
@@ -333,6 +338,7 @@ const handleFileSelect = (file: File) => {
   >
     Upload Document
   </button>
+      )}
                     </td>
                   </tr>
                 ))

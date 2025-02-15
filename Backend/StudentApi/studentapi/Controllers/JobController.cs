@@ -23,7 +23,7 @@ namespace studentapi.Controllers
 
 
 
-
+[Authorize(Roles = "Recruiter,Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateJob(int id, [FromBody] JobPositionDto jobPositionDto)
         {
@@ -107,7 +107,7 @@ namespace studentapi.Controllers
     
 
 
-[Authorize(Roles = "Candidate")]
+[Authorize(Roles = "Candidate,Admin,Recruiter")]
 
 //get all jobs 
 [HttpGet]
@@ -128,7 +128,9 @@ namespace studentapi.Controllers
         }
 
 
-[Authorize(Roles = "Interviewer")]
+// [Authorize(Roles = "Interviewer")]
+
+[Authorize(Roles = "Recruiter,Admin")]
 
         [HttpPost]
         public async Task<IActionResult> CreateJob([FromBody] JobPositionDto jobPositionDto)
@@ -165,25 +167,6 @@ namespace studentapi.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [HttpGet("{jobId}/skills")]
     public async Task<ActionResult<IEnumerable<JobSkillsDto>>> GetJobSkills(int jobId)
     {
@@ -205,9 +188,6 @@ namespace studentapi.Controllers
 
         return Ok(jobSkills);
     }
-
-
-
 
 
     }

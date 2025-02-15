@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { isRoleAllowed } from "../../auth";
 
 
 export const JobList = ({ onViewJob ,isOpen}: any) => {
@@ -162,6 +163,8 @@ useEffect(() => {
                       </svg>
                     </button>
 
+                    {isRoleAllowed(["Recruiter","Admin"]) &&( 
+
                                             <button  onClick={()=> onViewJob(job.id,"edit")} className="hover:text-primary">
                                                 <svg
                                                     className="fill-current"
@@ -177,6 +180,7 @@ useEffect(() => {
                                                     />
                                                 </svg>
                                             </button>
+                    )}
 
                   </div>
                 </td>

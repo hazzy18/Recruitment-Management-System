@@ -89,9 +89,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
                       
-                      {/* {isRoleAllowed(["Interviewer","Reviewer","hr"]) &&  */}
                       {/* Trial */}
-
+                      {isRoleAllowed(["HR","Reviewer","Admin"]) &&( 
 
                       <NavLink
                         to="#"
@@ -107,6 +106,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
+
                         <svg
                           className="fill-current"
                           width="18"
@@ -132,6 +132,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             fill=""
                           />
                         </svg>
+                           
+
                         Screening Dashboard
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
@@ -151,7 +153,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink>
-                
+  )}
+                   
+                      {/* )} */}
                       {/* <!-- Dropdown Menu Start --> */}
                       
                      <div
@@ -159,6 +163,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
+                       {isRoleAllowed(["Admin","HR"]) &&(
+
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
@@ -172,14 +178,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+                       )}
+
                       </div>
-                
 
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
                         }`}
                       >
+                                               {isRoleAllowed(["Admin","Reviewer"]) &&(
+
                         <ul className="mb-5.5 flex flex-col gap-1 pl-6">
                           <li>
                             <NavLink
@@ -193,6 +202,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+                                               )}
                       </div>
 
                       <div
@@ -200,6 +210,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
+{isRoleAllowed(["Admin","Reviewer"]) &&(
+
                         <ul className="mb-5.5 flex flex-col gap-1 pl-6">
                           <li>
                             <NavLink
@@ -213,6 +225,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+)}
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
@@ -233,6 +246,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
+
+{isRoleAllowed(["Admin","Recruiter","Interviewer"]) &&(
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -291,14 +306,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink>
+
+)}
+
+
                       {/* <!-- Dropdown Menu Start --> */}
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
                         }`}
                       >
+                        {isRoleAllowed(["Admin","Recruiter"]) &&(
+
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
+
                             <NavLink
                               to="/schedule-interview"
                               className={({ isActive }) =>
@@ -310,8 +332,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+                                                  )}
+
                       </div>
 
+
+
+                      {isRoleAllowed(["Admin","Interviewer","Recruiter"]) &&(
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
@@ -331,6 +358,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
+                      )}
+
+
+{isRoleAllowed(["Admin","Interviewer","Recruiter"]) &&(
 
                       <div
                         className={`translate transform overflow-hidden ${
@@ -351,7 +382,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
+)}
 
+
+{isRoleAllowed(["Admin","Interviewer","Recruiter"]) &&(
 
                       <div
                         className={`translate transform overflow-hidden ${
@@ -372,6 +406,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
+)}
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );
@@ -381,21 +416,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
 
-
-
-              {/* //--------------------------------------------------------------------------------- */}
-
-
-
 {/* <!-- Menu Item Dashboard --> */}
 <SidebarLinkGroup
                 activeCondition={
                   pathname === '/' || pathname.includes('dashboard')
                 }
               >
+              
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
+                      {isRoleAllowed(["HR","Admin"]) &&(
                       <NavLink
                         to="#"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -454,6 +485,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink>
+                      )}
                       {/* <!-- Dropdown Menu Start --> */}
 
 
@@ -462,6 +494,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
+                                              {isRoleAllowed(["HR","Admin"]) &&(
+
                         <ul className="mb-5.5 flex flex-col gap-1 pl-6">
                           <li>
                             <NavLink
@@ -475,6 +509,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+                                              )}
                       </div>
 
                       <div
@@ -482,6 +517,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
+                                              {isRoleAllowed(["HR","Admin"]) &&(
+
                         <ul className="mb-5.5 flex flex-col gap-1 pl-6">
                           <li>
                             <NavLink
@@ -495,6 +532,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
                         </ul>
+                                              )}
                       </div>
 
 
@@ -503,7 +541,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 }}
               </SidebarLinkGroup>
+              
+
               {/* <!-- Menu Item Dashboard --> */}
+              
 
 
 
@@ -596,8 +637,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
 
-
-
+ {isRoleAllowed(["Admin","Recruiter","Candidate"]) &&(
               <li>
               <NavLink
                   to="/job"
@@ -622,6 +662,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Job Management
                 </NavLink>
               </li>
+)}
+
+{isRoleAllowed(["Admin","Recruiter"]) &&(
 
               <li>
               <NavLink
@@ -647,6 +690,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Import Candidate
                 </NavLink>
               </li>
+)}
 
 
 
@@ -656,7 +700,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
 
-
+{isRoleAllowed(["Recruiter","Admin","HR","Candidate"]) &&( 
 
               <li>
               <NavLink
@@ -683,7 +727,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </NavLink>
               </li>
 
-
+                )}
 
 
              

@@ -1,5 +1,4 @@
 
-
 //---------------------------------------------------------------------------
 
 
@@ -13,6 +12,7 @@ using studentapi.Data;
 using OfficeOpenXml;
 using System;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -31,7 +31,9 @@ public class CandidatesController : ControllerBase
 
     }
 
+    
 
+[Authorize(Roles = "Recruiter,Admin")]
     [HttpPost("upload")]
     public async Task<IActionResult> UploadCandidates(IFormFile file)
     {
@@ -139,12 +141,6 @@ public class CandidatesController : ControllerBase
 
 
 
-
-
-
-
-
-
 //     [HttpPost]
 //     [RequestSizeLimit(10 * 1024 * 1024)] // Limit file size to 10MB
 
@@ -238,38 +234,7 @@ public class CandidatesController : ControllerBase
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<CandidateGetDto>>> GetCandidates()
-    {
-        var candidates = await _context.Candidates.ToListAsync();
-
-        // Map Candidates to CandidateGetDto (for GET requests)
-        var candidateDTOs = candidates.Select(c => new CandidateGetDto
-        {
-            Name = c.Name,
-            Email = c.Email,
-            Phone = c.Phone,
-            Experience = c.Experience
-        }).ToList();
-
-        return Ok(candidateDTOs);
-    }
-
-
-
+[Authorize(Roles = "Candidate,Admin")]
 
 [HttpPost("upload/{resumeScreeningId}")]
     public async Task<IActionResult> UploadDocument(int resumeScreeningId, IFormFile file)
@@ -330,7 +295,7 @@ public class CandidatesController : ControllerBase
 
 
 
-
+[Authorize(Roles = "Recruiter,Admin")]
 [HttpPost]
     public async Task<IActionResult> AddCandidate([FromBody] CandidateDto candidateDto)
     {
@@ -394,7 +359,32 @@ if(openJobs.Any())
         return Ok(new { message = "Candidate added and matched with jobs.", candidateId });
     }
 
+
+
+
+
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CandidateGetDto>>> GetCandidates()
+    {
+        var candidates = await _context.Candidates.ToListAsync();
+
+        // Map Candidates to CandidateGetDto (for GET requests)
+        var candidateDTOs = candidates.Select(c => new CandidateGetDto
+        {
+            Name = c.Name,
+            Email = c.Email,
+            Phone = c.Phone,
+            Experience = c.Experience
+        }).ToList();
+
+        return Ok(candidateDTOs);
+    }
+
 }
+
+
+
 public class CandidateGetDto
 {
     public string Name { get; set; } = string.Empty;

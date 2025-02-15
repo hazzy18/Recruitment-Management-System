@@ -69,7 +69,7 @@ function App() {
             <Routes>
             <Route element={<ProtectedRoute />}>
 
-              <Route index element={<ECommerce />} />
+              <Route index element={<ScreeningMainContainer />} />
               <Route path="/screeningpage" element={<ScreeningMainContainer />} />
               <Route path="/reviewerpage" element={<ReviewerMainContainer />} />
               <Route path="/rejectedpage" element={<RejectedPage />} />
