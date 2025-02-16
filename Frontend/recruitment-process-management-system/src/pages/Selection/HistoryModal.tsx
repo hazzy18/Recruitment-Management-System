@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import { Star } from "lucide-react";
 
 interface HistoryModalProps {
@@ -52,11 +52,11 @@ const HistoryModal: React.FC<HistoryModalProps> = ({
 
       try {
         // Fetch job skills
-        const skillsResponse = await axios.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
+        const skillsResponse = await api.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
         setSkills(skillsResponse.data);
 
         // Fetch ratings and comments
-        const ratingsResponse = await axios.get<SkillRating[]>(
+        const ratingsResponse = await api.get<SkillRating[]>(
           `http://localhost:5283/api/history/get-skill-ratings/${resumeScreeningId}`
         );
 

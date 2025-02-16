@@ -3,7 +3,7 @@
 
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import OfferLetterModal from "./OfferLetterModal";
 
 
@@ -31,7 +31,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchScreenings = async () => {
       try {
-        const response = await axios.get<ResumeScreening[]>(
+        const response = await api.get<ResumeScreening[]>(
           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Verified"
         );
         setScreenings(response.data);

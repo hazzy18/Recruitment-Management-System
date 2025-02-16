@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import Select from "react-select";
 
 interface CandidateFormProps {
@@ -35,7 +35,7 @@ interface CandidateFormProps {
     
       // Fetch skills from the backend
   useEffect(() => {
-    axios
+    api
       .get("http://localhost:5283/api/skill") // Adjust the API if needed
       .then((response) => {
         const skillOptions = response.data.map((skill: { id: number; name: string }) => ({
@@ -63,7 +63,7 @@ interface CandidateFormProps {
     e.preventDefault();
 
     try {
-        await axios.post("http://localhost:5283/api/candidates", formData);
+        await api.post("http://localhost:5283/api/candidates", formData);
         onCandidateAdded();
         alert("Candidate added successfully!");
         onClose(); // Close the modal after submission
@@ -165,7 +165,7 @@ export default CandidateForm;
 
 
 // import React, { useState, useEffect } from "react";
-// import axios from "axios";
+// import api from "../../axiosInstance";
 // import Select from "react-select";
 
 // interface CandidateFormProps {
@@ -206,7 +206,7 @@ export default CandidateForm;
     
 //       // Fetch skills from the backend
 //   useEffect(() => {
-//     axios
+//     api
 //       .get("http://localhost:5283/api/skill") // Adjust the API if needed
 //       .then((response) => {
 //         const skillOptions = response.data.map((skill: { id: number; name: string }) => ({
@@ -245,7 +245,7 @@ export default CandidateForm;
 //     try {
 
 
-//         await axios.post("http://localhost:5283/api/candidates", formData);
+//         await api.post("http://localhost:5283/api/candidates", formData);
 //         onCandidateAdded();
 //         setMessage("Candidate added successfully!");
 //         alert("Candidate added successfully!");

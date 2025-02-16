@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import axios from "axios";
+import api from "../../axiosInstance";
 
 
 // Define the interface for interviewers
@@ -57,7 +57,7 @@ const ShortlistModal: React.FC<ShortlistModalProps> = ({
 
 
     try {
-      await axios.post("http://localhost:5283/api/interview/schedule", {
+      await api.post("http://localhost:5283/api/interview/schedule", {
         resumeScreeningId,  // ✅ Include resumeScreeningId
         candidateEmail,
         interviewerEmails: interviewerEmails,
@@ -83,7 +83,7 @@ const ShortlistModal: React.FC<ShortlistModalProps> = ({
   useEffect(() => {
     const fetchInterviewers = async () => {
       try {
-        const response = await axios.get("http://localhost:5283/api/employees/interviewers");
+        const response = await api.get("http://localhost:5283/api/employees/interviewers");
 
         if (response.data && Array.isArray(response.data)) {
           // Transform API response into required format for react-select

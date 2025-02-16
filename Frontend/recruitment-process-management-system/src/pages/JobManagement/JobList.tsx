@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import { isRoleAllowed } from "../../auth";
 
 
@@ -10,7 +10,7 @@ const [jobs, setJobs] = useState<any[]>([]); // State to store jobs
 useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://localhost:5283/api/job"); // Replace with your API URL
+        const response = await api.get("http://localhost:5283/api/job"); // Replace with your API URL
         console.log("Fetched Jobs:", response.data); // Log the response
         setJobs(response.data); // Update state with fetched jobs
       } catch (error) {

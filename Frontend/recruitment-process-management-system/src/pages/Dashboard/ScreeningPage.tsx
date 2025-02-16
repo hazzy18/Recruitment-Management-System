@@ -4,7 +4,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import AssignReviewerModal from "./AssignReviewerModal";
 
 
@@ -32,7 +32,7 @@ const ScreeningPage: React.FC = () => {
 
 
   const fetchScreenings=() => {
-    axios
+    api
       .get<Screening[]>("http://localhost:5283/api/screenings") // Ensure correct response type
       .then((response) => {
         setScreenings(response.data);
@@ -66,7 +66,7 @@ const ScreeningPage: React.FC = () => {
       return;
     }
     try {
-      await axios.post("http://localhost:5283/api/screenings/assign-reviewer", {
+      await api.post("http://localhost:5283/api/screenings/assign-reviewer", {
         resumeScreeningId: selectedScreeningRecord,
         reviewerId: selectedReviewer,
       });

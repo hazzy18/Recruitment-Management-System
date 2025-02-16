@@ -3,7 +3,7 @@
 
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 
 
 interface ResumeScreening {
@@ -27,7 +27,7 @@ const DocumentVerification = () => {
 
   const handleDownload = async (resumeScreeningId: number) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `http://localhost:5283/api/hr/download/${resumeScreeningId}`,
         { responseType: "blob" } // Ensures we receive a file
       );
@@ -64,7 +64,7 @@ const DocumentVerification = () => {
 
   const handleVerify = async (resumeScreeningId: number) => {
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `http://localhost:5283/api/hr/verify/${resumeScreeningId}`
       );
   
@@ -81,7 +81,7 @@ const DocumentVerification = () => {
   useEffect(() => {
     const fetchScreenings = async () => {
       try {
-        const response = await axios.get<ResumeScreening[]>(
+        const response = await api.get<ResumeScreening[]>(
           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Document Uploaded"
         );
         setScreenings(response.data);

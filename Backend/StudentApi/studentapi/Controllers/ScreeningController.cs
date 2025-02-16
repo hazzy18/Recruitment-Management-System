@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using studentapi.Data;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 
 [ApiController]
@@ -29,10 +30,21 @@ public async Task<IActionResult> GetResumeScreenings(
 {
     Console.WriteLine($"Query Parameter Received: unassignedOnly={unassignedOnly}, statusFilter={statusFilter}");
 
+var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value; // Role (Candidate/Interviewer)
+    var userEmail = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value; // Email if needed
+
+    Console.WriteLine($"Logged-in User: Role={userRole}, Email={userEmail}");
+
     var query = _context.ResumeScreenings
         .Include(rs => rs.Job)
         .Include(rs => rs.Candidate)
         .AsQueryable();
+
+        // 🔹 Restrict "Candidate" to see only their own records
+    if (userRole == "Candidate" && !string.IsNullOrEmpty(userEmail))
+    {
+        query = query.Where(rs => rs.Candidate.Email == userEmail);
+    }
 
     if (unassignedOnly) // Default case (fetch only unassigned)
     {
@@ -215,31 +227,17 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // [HttpGet]
 // public async Task<IActionResult> GetResumeScreenings(
 //     [FromQuery] bool unassignedOnly = true,
 //     [FromQuery] string? statusFilter = null) // Default to true
 // {
 //     Console.WriteLine($"Query Parameter Received: unassignedOnly={unassignedOnly}, statusFilter={statusFilter}");
+
+// var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value; // Role (Candidate/Interviewer)
+//     var userEmail = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value; // Email if needed
+
+//     Console.WriteLine($"Logged-in User: Role={userRole}, Email={userEmail}");
 
 //     var query = _context.ResumeScreenings
 //         .Include(rs => rs.Job)
@@ -287,6 +285,26 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 //     return Ok(screenings);
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 
 interface JobViewProps {
   jobId: number;
@@ -14,7 +14,7 @@ const JobViewForm = ({ jobId, isOpen, setIsOpen }: JobViewProps) => {
     if (jobId && isOpen) {
       const fetchJobDetails = async () => {
         try {
-          const response = await axios.get(`http://localhost:5283/api/job/${jobId}`);
+          const response = await api.get(`http://localhost:5283/api/job/${jobId}`);
           setJobData(response.data);
         } catch (error) {
           console.error("Error fetching job details:", error);

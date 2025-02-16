@@ -58,8 +58,8 @@ public IActionResult Login([FromBody] UserDvo login)
             Subject = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, role)
-                //i can add name also 
+                new Claim(ClaimTypes.Role, role),
+
             }),
             Expires = DateTime.UtcNow.AddHours(4),
             Issuer = "your-app",  // Add Issuer

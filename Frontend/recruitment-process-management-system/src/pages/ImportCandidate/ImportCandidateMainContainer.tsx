@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import CandidateForm from "./CandidateForm";
 import CandidateList from './CandidateList';
-import axios from "axios";
+import api from "../../axiosInstance";
 import UploadFile from './UploadFile';
 
 

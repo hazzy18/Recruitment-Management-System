@@ -3,7 +3,7 @@
 // //---------------------------------------------------------------------------------------------------------------------------------------------
 
 // import { useEffect, useState } from "react";
-// import axios from "axios";
+// import api from "../../axiosInstance";
 // import FeedbackModal from "./FeedbackModal"; // Import your modal component
 
 
@@ -42,7 +42,7 @@
 //   useEffect(() => {
 //     const fetchScreenings = async () => {
 //       try {
-//         const response = await axios.get<ResumeScreening[]>(
+//         const response = await api.get<ResumeScreening[]>(
 //           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Final Round"
 //         );
 //         setScreenings(response.data);
@@ -174,7 +174,7 @@
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import FeedbackModal from "./FeedbackModal"; // Import your modal component
 import HistoryModal from "../Selection/HistoryModal";
 import { isRoleAllowed } from "../../auth";
@@ -231,7 +231,7 @@ const handleCloseFeedbackModal = () => {
   useEffect(() => {
     const fetchScreenings = async () => {
       try {
-        const response = await axios.get<ResumeScreening[]>(
+        const response = await api.get<ResumeScreening[]>(
           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Final Round"
         );
         setScreenings(response.data);

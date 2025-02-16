@@ -1,5 +1,5 @@
 // import React, { useEffect, useState } from "react";
-// import axios from "axios";
+// import api from "../../axiosInstance";
 
 // interface UploadFileProps {
 //   isOpen: boolean;
@@ -86,7 +86,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 
 interface UploadFileProps {
   isOpen: boolean;
@@ -141,7 +141,7 @@ const UploadFile: React.FC<UploadFileProps> = ({ isOpen, onClose, onFileSelect,s
     formData.append("file", file);
 
     try {
-      await axios.post(
+      await api.post(
         `http://localhost:5283/api/candidates/upload/${resumeScreeningId}`, // ✅ Use dynamic resumeScreeningId
         formData,
         {

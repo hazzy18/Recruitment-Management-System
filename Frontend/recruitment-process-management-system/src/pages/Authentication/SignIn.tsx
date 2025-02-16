@@ -21,7 +21,7 @@
 //     setError("");
 
 //     try {
-//       const response = await axios.post("http://localhost:5283/api/login", {
+//       const response = await api.post("http://localhost:5283/api/login", {
 //         email,
 //         password,
 //       });
@@ -124,8 +124,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
-import axios from 'axios';
 import { isRoleAllowed } from '../../auth';
+import api from '../../axiosInstance';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -138,7 +138,7 @@ const SignIn: React.FC = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5283/api/login", {
+      const response = await api.post("http://localhost:5283/api/login", {
         email,
         password,
       });
@@ -151,7 +151,6 @@ const SignIn: React.FC = () => {
         localStorage.setItem("token", token); // Store the token
         localStorage.setItem("role", role); // Store role in local storage
 
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // Set default header
         switch (role) {
           case "HR":
             navigate("/documentverification");

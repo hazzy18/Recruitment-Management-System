@@ -3,7 +3,7 @@
 
 
 // import { useEffect, useState } from "react";
-// import axios from "axios";
+// import api from "../../axiosInstance";
 // import HistoryModal from "./HistoryModal";
 // import UploadFile from "./UploadFile";
 
@@ -65,7 +65,7 @@
 //   useEffect(() => {
 //     const fetchScreenings = async () => {
 //       try {
-//         const response = await axios.get<ResumeScreening[]>(
+//         const response = await api.get<ResumeScreening[]>(
 //           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Selected"
 //         );
 //         setScreenings(response.data);
@@ -194,7 +194,7 @@
 
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import HistoryModal from "./HistoryModal";
 import UploadFile from "./UploadFile";
 import { isRoleAllowed } from "../../auth";
@@ -254,7 +254,7 @@ const handleFileSelect = (file: File) => {
   useEffect(() => {
     const fetchScreenings = async () => {
       try {
-        const response = await axios.get<ResumeScreening[]>(
+        const response = await api.get<ResumeScreening[]>(
           "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Selected"
         );
         setScreenings(response.data);

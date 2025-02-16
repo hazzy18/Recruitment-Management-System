@@ -2,7 +2,7 @@
 // //------------------------------------------------------------------------------------------------------------------------
 
 // import { useEffect, useState } from "react";
-// import axios from "axios";
+// import api from "../../axiosInstance";
 // import { Star } from "lucide-react";
 
 
@@ -50,7 +50,7 @@
 //       setError(null);
 
 //       try {
-//         const response = await axios.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
+//         const response = await api.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
 //         setSkills(response.data);
 
 //         // Initialize ratings with default value 1 for each skill
@@ -88,7 +88,7 @@
 //     };
 
 //     try {
-//       await axios.post("http://localhost:5283/api/interview/evaluate-screening", payload);
+//       await api.post("http://localhost:5283/api/interview/evaluate-screening", payload);
 //       onClose(); // Close modal after successful submission
 //     } catch (err) {
 //       setError("Failed to submit evaluation.");
@@ -203,7 +203,7 @@
 //------------------------------------------------------------------------------------------------------------------------
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 import { Star } from "lucide-react";
 
 
@@ -253,7 +253,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
       setError(null);
 
       try {
-        const response = await axios.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
+        const response = await api.get<Skill[]>(`http://localhost:5283/api/job/${jobId}/skills`);
         setSkills(response.data);
 
         // Initialize ratings with default value 1 for each skill
@@ -299,7 +299,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
     };
 
     try {
-      await axios.post("http://localhost:5283/api/interview/evaluate-screening", payload);
+      await api.post("http://localhost:5283/api/interview/evaluate-screening", payload);
       onClose(); // Close modal after successful submission
     } catch (err) {
       setError("Failed to submit evaluation.");

@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------------------------------------------------------
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import CommentModal from "./CommentModal";
+import api from "../../axiosInstance";
 
 interface Screening {
   resumeScreeningId: number;
@@ -28,7 +28,7 @@ const ReviewerPage: React.FC = () => {
 
   const handleOpenModal = async (screenId: number) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `http://localhost:5283/api/screenings/candidate-details/${screenId}`
       );
 
@@ -63,7 +63,7 @@ const ReviewerPage: React.FC = () => {
 
 
   useEffect(() => {
-    axios
+    api
       .get("http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=In Review")
       .then((response) => {
         setScreenings(response.data);
@@ -82,10 +82,12 @@ const ReviewerPage: React.FC = () => {
 
   const handleStatusChange = async (id: number, newStatus: string) => {
     try {
-      const response = await axios.put(`http://localhost:5283/api/screenings/${id}/status`, {
+      const response = await api.put(`http://localhost:5283/api/screenings/${id}/status`, {
         status: newStatus,
       });
   
+
+
       console.log("Status updated:", response.data);
   
       // Update state to reflect new status

@@ -3,7 +3,7 @@
 
 
 import React, { useEffect } from "react";
-import axios from "axios"; // 
+import api from "../../axiosInstance"; // 
 
 
 interface Skill {
@@ -64,7 +64,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
       };
   
       try {
-        const response = await axios.post("http://localhost:5283/api/screenings/submit-comment", payload);
+        const response = await api.post("http://localhost:5283/api/screenings/submit-comment", payload);
         console.log("Success:", response.data);
         onClose(); // ✅ Close modal
       } catch (error) {

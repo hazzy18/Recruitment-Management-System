@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../axiosInstance";
 
 interface UploadFileProps {
   isOpen: boolean;
@@ -50,7 +50,7 @@ const UploadFile: React.FC<UploadFileProps> = ({ isOpen, onClose, onFileSelect,s
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://localhost:5283/api/candidates/upload", formData, {
+      const response = await api.post("http://localhost:5283/api/candidates/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

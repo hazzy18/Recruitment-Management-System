@@ -5,7 +5,7 @@
 
 
 
-import axios from "axios";
+import api from "../../axiosInstance";
 import { useState } from "react";
 
 interface ResumeScreening {
@@ -43,7 +43,7 @@ const OfferLetterModal: React.FC<OfferLetterModalProps> = ({
     if (!screeningsingle) return; // ✅ Ensure screening is selected
 
     try {
-      const response = await axios.post(
+      const response = await api.post(
         `http://localhost:5283/api/hr/release-offer/${screeningsingle.resumeScreeningId}`,
         { joiningDate }
       );

@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../axiosInstance";
 import { useEffect, useState } from "react";
 import Select from "react-select";
 
@@ -70,7 +70,7 @@ const JobForm = ({ isOpen, setIsOpen, jobId, operation }: any) => {
 
       console.log("Transformed Payload:", apiPayload);
       // Send data to API using Axios
-      const response = await axios.post("http://localhost:5283/api/job", apiPayload, {
+      const response = await api.post("http://localhost:5283/api/job", apiPayload, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -106,7 +106,7 @@ const JobForm = ({ isOpen, setIsOpen, jobId, operation }: any) => {
         ],
       };
 
-      const response = await axios.put(
+      const response = await api.put(
         `http://localhost:5283/api/job/${jobId}`,
         payload,
         {
@@ -131,7 +131,7 @@ const JobForm = ({ isOpen, setIsOpen, jobId, operation }: any) => {
     if (jobId && isOpen && (operation == "view" || operation == "edit")) {
       const fetchJobDetails = async () => {
         try {
-          const response: any = await axios.get(`http://localhost:5283/api/job/${jobId}`);
+          const response: any = await api.get(`http://localhost:5283/api/job/${jobId}`);
 
           console.log(response)
           const data = response.data
@@ -209,7 +209,7 @@ const preferredSkillIds = data.jobSkills
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get("http://localhost:5283/api/skill");
+        const response = await api.get("http://localhost:5283/api/skill");
         console.log("Api response is coming", response)
         // Assuming API response is an array of objects like [{ id: 1, name: "React" }]
         const formattedSkills = response.data.map((skill: any) => ({
