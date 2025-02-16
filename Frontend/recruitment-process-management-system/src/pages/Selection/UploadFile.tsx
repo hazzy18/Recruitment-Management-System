@@ -94,10 +94,11 @@ interface UploadFileProps {
   onFileSelect: (file: File) => void;
   selectedFile: File | null;
   resumeScreeningId: number | null; 
+  onUploadSuccess:()=>void;
 
 }
 
-const UploadFile: React.FC<UploadFileProps> = ({ isOpen, onClose, onFileSelect,selectedFile, resumeScreeningId }) => {
+const UploadFile: React.FC<UploadFileProps> = ({ isOpen, onClose, onFileSelect,selectedFile, resumeScreeningId,onUploadSuccess }) => {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
@@ -152,6 +153,9 @@ const UploadFile: React.FC<UploadFileProps> = ({ isOpen, onClose, onFileSelect,s
       );
 
       setMessage("Upload successful!");
+      onUploadSuccess(); // ✅ Trigger refresh after successful upload
+      onClose(); // ✅ Close modal after success
+
     } catch (error) {
       setMessage("Upload failed. Please try again.");
     } finally {

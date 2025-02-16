@@ -23,6 +23,7 @@ const DocumentVerification = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedScreening, setSelectedScreening] = useState<ResumeScreening | null>(null);
+  const [shouldRefresh, setShouldRefresh] = useState(false); // ✅ Add refresh trigger
 
 
   const handleDownload = async (resumeScreeningId: number) => {
@@ -69,7 +70,7 @@ const DocumentVerification = () => {
       );
   
       alert("Candidate Verified Successfully!");
-      window.location.reload(); // Refresh the page to update status
+      setShouldRefresh(prev => !prev); // ✅ Toggle refresh state to trigger re-fetch
     } catch (error) {
       console.error("Error verifying candidate:", error);
       alert("Failed to verify candidate.");
@@ -93,7 +94,7 @@ const DocumentVerification = () => {
     };
 
     fetchScreenings();
-  }, []);
+  }, [shouldRefresh]);
 
 
 

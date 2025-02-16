@@ -28,6 +28,7 @@ import SelectedCandidates from './pages/Selection/SelectedCandidates';
 import DocumentVerification from './pages/Hr dashboard/DocumentVerification';
 import ReleaseOfferLetter from './pages/Hr dashboard/ReleaseOfferLetter';
 import ProtectedRoute from './components/ProtectedRoute';
+import Reporting from './pages/Reports/Reporting';
 
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/job" element={<JobMainContainer />} />
               <Route path="/candidate" element={<ImportCandidateMainContainer />} />
+              <Route path="/reports" element={<Reporting />} />
 
               <Route path="forms/form-elements" element={<FormElements />} />
               <Route path="forms/form-layout" element={<FormLayout />} />

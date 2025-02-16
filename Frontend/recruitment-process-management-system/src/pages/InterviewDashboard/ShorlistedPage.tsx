@@ -1,3 +1,4 @@
+
 //----------------------------------------------------------------------------------------------------------------
 
 
@@ -42,6 +43,14 @@ interface ResumeScreening {
     
         fetchScreenings();
       }, []);
+
+
+      const handleInterviewScheduled = (resumeScreeningId: number) => {
+        setScreenings((prevScreenings) =>
+          prevScreenings.filter((screening) => screening.resumeScreeningId !== resumeScreeningId)
+        );
+      };
+      
 
       const handleOpenModal = (candidate: ResumeScreening) => {
         setSelectedCandidate(candidate);
@@ -158,6 +167,8 @@ interface ResumeScreening {
           jobTitle={selectedCandidate.jobName}
           totalExperience={selectedCandidate.experience}
           onClose={handleCloseModal}
+          onInterviewScheduled={handleInterviewScheduled} // ✅ Pass callback
+
         />
       )}
 

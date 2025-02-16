@@ -1,4 +1,5 @@
 
+
 //------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -21,6 +22,8 @@ interface ShortlistModalProps {
   jobTitle: string;
   totalExperience: number;
   onClose: () => void;
+  onInterviewScheduled: (resumeScreeningId: number) => void; // ✅ New Prop
+
 }
 
 const ShortlistModal: React.FC<ShortlistModalProps> = ({
@@ -30,6 +33,7 @@ const ShortlistModal: React.FC<ShortlistModalProps> = ({
   jobTitle,
   totalExperience,
   onClose,
+  onInterviewScheduled
 }) => {
   const [interviewers, setInterviewers] = useState<Interviewer[]>([]); // Interviewers List
   const [selectedInterviewers, setSelectedInterviewers] = useState<Interviewer[]>([]); // Selected Interviewers
@@ -68,6 +72,8 @@ const ShortlistModal: React.FC<ShortlistModalProps> = ({
       });
 
       alert("Interview scheduled successfully!");
+      onInterviewScheduled(resumeScreeningId);
+
       onClose();
     } catch (error) {
       console.error("Failed to schedule interview:", error);

@@ -219,16 +219,11 @@ const handleOpenFeedbackModal = (screening: ResumeScreening) => {
   setIsFeedbackModalOpen(true);
 };
 
-// Close Feedback Modal
-const handleCloseFeedbackModal = () => {
-  setIsFeedbackModalOpen(false);
-  setSelectedScreening(null);
-};
+
 
 
   
 
-  useEffect(() => {
     const fetchScreenings = async () => {
       try {
         const response = await api.get<ResumeScreening[]>(
@@ -241,9 +236,20 @@ const handleCloseFeedbackModal = () => {
         setLoading(false);
       }
     };
+    useEffect(() => {
 
     fetchScreenings();
   }, []);
+
+
+  // Close Feedback Modal
+const handleCloseFeedbackModal = ( refresh: boolean = false) => {
+  setIsFeedbackModalOpen(false);
+  setSelectedScreening(null);
+  if (refresh) {
+    fetchScreenings(); // Refresh the list after feedback submission
+  };
+};
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">

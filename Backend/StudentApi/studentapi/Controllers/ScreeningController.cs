@@ -46,6 +46,32 @@ var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value; // Role (Cand
         query = query.Where(rs => rs.Candidate.Email == userEmail);
     }
 
+    if (userRole == "Reviewer" && !string.IsNullOrEmpty(userEmail))
+{
+    query = query.Where(rs => rs.Reviewer != null && rs.Reviewer.Email == userEmail);
+}
+
+
+
+ // 🔹 Restrict "Interviewer" to see only assigned interviews (where they are in InterviewerIds)
+    if (userRole == "Interviewer" && !string.IsNullOrEmpty(userEmail))
+    {
+        var interviewer = await _context.Employees
+            .Where(e => e.Email == userEmail)
+            .Select(e => e.Id) // Fetch the ID of the logged-in interviewer
+            .FirstOrDefaultAsync();
+
+        if (interviewer > 0)
+        {
+            query = query.Where(rs => rs.InterviewerIds != null && 
+                rs.InterviewerIds.Contains(interviewer.ToString())); // Check if InterviewerIds contains this ID
+        }
+        else
+        {
+            return Unauthorized("No interviewer record found for this email.");
+        }
+    }
+
     if (unassignedOnly) // Default case (fetch only unassigned)
     {
         query = query.Where(rs => rs.ReviewerId == null);
@@ -227,6 +253,24 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // [HttpGet]
 // public async Task<IActionResult> GetResumeScreenings(
 //     [FromQuery] bool unassignedOnly = true,
@@ -243,6 +287,12 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 //         .Include(rs => rs.Job)
 //         .Include(rs => rs.Candidate)
 //         .AsQueryable();
+
+//         // 🔹 Restrict "Candidate" to see only their own records
+//     if (userRole == "Candidate" && !string.IsNullOrEmpty(userEmail))
+//     {
+//         query = query.Where(rs => rs.Candidate.Email == userEmail);
+//     }
 
 //     if (unassignedOnly) // Default case (fetch only unassigned)
 //     {
@@ -285,22 +335,6 @@ public async Task<IActionResult> SubmitComment([FromBody] SubmitCommentDto reque
 
 //     return Ok(screenings);
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -381,16 +415,3 @@ public class SkillExperienceDto
 
 
 
-// public class ResumeScreeningDTO
-// {
-//     public int ResumeScreeningId { get; set; } // Unique ID of the screening record
-//     public string JobName { get; set; } = string.Empty;
-//     public string CandidateName { get; set; } = string.Empty;
-//         public string CandidateEmail { get; set; } = string.Empty; // Add Candidate Email
-
-//     public int Experience { get; set; } // Add Experience Field
-
-//     public string Status { get; set; } = string.Empty;
-//     public int? ReviewerId { get; set; } // Nullable field to show if reviewer is assigned
-
-// }

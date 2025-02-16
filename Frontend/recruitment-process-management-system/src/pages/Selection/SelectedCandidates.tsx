@@ -219,6 +219,7 @@ const SelectedCandidates = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedResumeScreeningId, setSelectedResumeScreeningId] = useState<number | null>(null);
+  const [shouldRefresh, setShouldRefresh] = useState(false); // ✅ Add refresh trigger
 
 
   
@@ -243,6 +244,8 @@ const handleCloseUploadModal = () => {
   setIsUploadModalOpen(false);
   setSelectedFile(null);
   setSelectedResumeScreeningId(null);
+  setShouldRefresh(prev => !prev); // ✅ Trigger re-fetch after modal closes
+
 };
 
 const handleFileSelect = (file: File) => {
@@ -266,7 +269,7 @@ const handleFileSelect = (file: File) => {
     };
 
     fetchScreenings();
-  }, []);
+  }, [shouldRefresh]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -371,6 +374,9 @@ const handleFileSelect = (file: File) => {
         onFileSelect={handleFileSelect}
         selectedFile={selectedFile}
   resumeScreeningId={selectedResumeScreeningId}
+  onUploadSuccess={() => setShouldRefresh(prev => !prev)} // ✅ Pass refresh function
+
+
       />
 
     </div>

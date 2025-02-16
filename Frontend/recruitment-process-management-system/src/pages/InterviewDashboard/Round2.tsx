@@ -32,14 +32,35 @@ const handleOpenModal = (screening: ResumeScreening) => {
   setSelectedScreening(screening);
 };
 
-// Close modal
-const handleCloseModal = () => {
-  setSelectedScreening(null);
-};
+// // Close modal
+// const handleCloseModal = () => {
+//   setSelectedScreening(null);
+// };
 
   
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchScreenings = async () => {
+  //     try {
+  //       const response = await api.get<ResumeScreening[]>(
+  //         "http://localhost:5283/api/screenings/?unassignedOnly=false&statusFilter=Round 2"
+  //       );
+  //       setScreenings(response.data);
+  //     } catch (err) {
+  //       setError("Failed to fetch data. Please try again.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchScreenings();
+  // }, []);
+
+
+
+
+
+
     const fetchScreenings = async () => {
       try {
         const response = await api.get<ResumeScreening[]>(
@@ -53,9 +74,18 @@ const handleCloseModal = () => {
       }
     };
 
+    useEffect(() => {
+
     fetchScreenings();
   }, []);
 
+
+  const handleCloseModal = (refresh: boolean = false) => {
+    setSelectedScreening(null);
+    if (refresh) {
+      fetchScreenings(); // Refresh the list after feedback submission
+    };
+  }
 
 
 

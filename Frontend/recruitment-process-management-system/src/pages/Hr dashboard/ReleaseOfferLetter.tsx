@@ -26,7 +26,8 @@ const ReleaseOfferLetter = () => {
   const [selectedScreening, setSelectedScreening] =
   useState<ResumeScreening | null>(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
-  
+const [shouldRefresh, setShouldRefresh] = useState(false); // ✅ Add refresh trigger
+
 
   useEffect(() => {
     const fetchScreenings = async () => {
@@ -43,7 +44,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     };
 
     fetchScreenings();
-  }, []);
+  }, [shouldRefresh]);
 
 
 
@@ -155,7 +156,11 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       {/* Modal */}
       <OfferLetterModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setShouldRefresh(prev => !prev); // ✅ Trigger re-fetch on modal close
+
+        }}
         screeningsingle={selectedScreening} // ✅ Pass selected screening
 
       />
